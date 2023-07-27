@@ -16,7 +16,7 @@ public class EmployeeController {
     private final EmployeeService employeeService;
 
     @GetMapping("/salary/sum")
-    public Employee getSumOfSalary() {
+    public int getSumOfSalary() {
         return employeeService.getSumOfSalary();
     }
 
@@ -30,7 +30,7 @@ public class EmployeeController {
         return employeeService.getEmployeeWithMaxSalary();
     }
 
-    @GetMapping("/salary/high-salary")
+    @GetMapping("/high-salary")
     public List<Employee> getHighSalary() {
         return employeeService.getHighSalary();
     }
