@@ -11,6 +11,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @RequestMapping("employees")
 public class EmployeeController {
+
     private final EmployeeService employeeService;
 
     @GetMapping("/salary/sum")
@@ -46,6 +47,11 @@ public class EmployeeController {
     @DeleteMapping("/{id}")
     public void deleteEmployeeById(@PathVariable int id) {
         employeeService.deleteEmployeeById(id);
+    }
+
+    @PutMapping("/{id}")
+    public void changeEmployeeById(@RequestBody Employee employee, @PathVariable int id) {
+        employeeService.editEmployee(employee, id);
     }
 
 }
