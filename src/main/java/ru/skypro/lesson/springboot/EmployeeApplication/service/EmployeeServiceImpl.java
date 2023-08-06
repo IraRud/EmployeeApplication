@@ -73,4 +73,11 @@ public class EmployeeServiceImpl implements EmployeeService {
         employeeById.setSalary(employee.getSalary());
     }
 
+    @Override
+    public List<Employee> getSalaryHigherThan(int salary) {
+        return employeeRepository.getAllEmployees().stream()
+                .filter(employee -> employee.getSalary() > salary)
+                .toList();
+    }
+
 }

@@ -54,4 +54,9 @@ public class EmployeeController {
         employeeService.editEmployee(employee, id);
     }
 
+    @GetMapping("/salaryHigherThan")
+    public List<Employee> getSalaryHigherThan(@RequestParam("salary") int salary) {
+        return employeeService.getSalaryHigherThan(salary);
+    }
+
 }

@@ -25,12 +25,17 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
 
     @Override
     public void addEmployees(List<Employee> employeeList) {
-        this.employees.addAll(employeeList);
+        employees.addAll(employeeList);
     }
 
     @Override
     public void deleteEmployeeById(int id) {
-        this.employees.removeIf(employee -> employee.getId() == id);
+        Employee employeeDeleted = employees.stream()
+                .filter(employee -> employee.getId() == id)
+                .findAny()
+                .get();
+
+        this.employees.remove(employeeDeleted);
     }
 
 }
