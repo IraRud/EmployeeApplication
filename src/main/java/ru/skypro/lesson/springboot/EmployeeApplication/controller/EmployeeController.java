@@ -1,9 +1,7 @@
 package ru.skypro.lesson.springboot.EmployeeApplication.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import ru.skypro.lesson.springboot.EmployeeApplication.model.Employee;
 import ru.skypro.lesson.springboot.EmployeeApplication.service.EmployeeService;
 
@@ -11,8 +9,9 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("employee")
+@RequestMapping("employees")
 public class EmployeeController {
+
     private final EmployeeService employeeService;
 
     @GetMapping("/salary/sum")
@@ -34,4 +33,30 @@ public class EmployeeController {
     public List<Employee> getHighSalary() {
         return employeeService.getHighSalary();
     }
+
+    @PostMapping()
+    public void createEmployees(@RequestBody List<Employee> employees) {
+        employeeService.addEmployees(employees);
+    }
+
+    @GetMapping("/{id}")
+    public Employee getEmployeeById(@PathVariable int id) {
+        return employeeService.getEmployeeById(id);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteEmployeeById(@PathVariable int id) {
+        employeeService.deleteEmployeeById(id);
+    }
+
+    @PutMapping("/{id}")
+    public void changeEmployeeById(@RequestBody Employee employee, @PathVariable int id) {
+        employeeService.editEmployee(employee, id);
+    }
+
+    @GetMapping("/salaryHigherThan")
+    public List<Employee> getSalaryHigherThan(@RequestParam("salary") int salary) {
+        return employeeService.getSalaryHigherThan(salary);
+    }
+
 }

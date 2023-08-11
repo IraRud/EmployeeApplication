@@ -42,8 +42,41 @@ public class EmployeeServiceImpl implements EmployeeService {
                 .mapToInt(Employee::getSalary)
                 .average()
                 .getAsDouble();
+
         return employeeRepository.getAllEmployees().stream()
                 .filter(employee -> employee.getSalary() > average)
+                .toList();
+    }
+
+    @Override
+    public void addEmployees(List<Employee> employees) {
+        employeeRepository.addEmployees(employees);
+    }
+
+    @Override
+    public Employee getEmployeeById(int id) {
+        return employeeRepository.getAllEmployees().stream()
+                .filter(employee -> employee.getId() == id)
+                .findAny()
+                .get();
+    }
+
+    @Override
+    public void deleteEmployeeById(int id) {
+        employeeRepository.deleteEmployeeById(id);
+    }
+
+    @Override
+    public void editEmployee(Employee employee, int id) {
+        Employee employeeById = getEmployeeById(id);
+        employeeById.setName(employee.getName());
+        employeeById.setSalary(employee.getSalary());
+    }
+
+    @Override
+    public List<Employee> getSalaryHigherThan(int salary) {
+        return employeeRepository.getAllEmployees().stream()
+                .filter(employee -> employee.getSalary() > salary)
                 .toList();
     }
 
