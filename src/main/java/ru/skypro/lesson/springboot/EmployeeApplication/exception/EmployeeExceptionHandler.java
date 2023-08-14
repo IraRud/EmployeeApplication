@@ -25,7 +25,7 @@ public class EmployeeExceptionHandler {
 
     @ExceptionHandler
     public ResponseEntity<?> handleNoSuchElementException(NoSuchElementException noSuchElementException) {
-        String massage = "Employee not found!";
+        String massage = "404 not found!";
         return new ResponseEntity<>(massage, HttpStatus.NOT_FOUND);
     }
 

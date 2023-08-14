@@ -81,4 +81,11 @@ public class EmployeeServiceImpl implements EmployeeService {
                 .filter(employee -> employee.getSalary() > salary)
                 .toList();
     }
+
+    @Override
+    public List<EmployeeDTO> getEmployeesWithHighestSalary() {
+        return employeeRepository.getEmployeesWithHighestSalary().stream()
+                .map(EmployeeDTO::fromEmployee)
+                .toList();
+    }
 }
