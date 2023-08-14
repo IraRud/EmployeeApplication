@@ -3,12 +3,14 @@ package ru.skypro.lesson.springboot.EmployeeApplication.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.skypro.lesson.springboot.EmployeeApplication.dto.EmployeeDTO;
+import ru.skypro.lesson.springboot.EmployeeApplication.projection.EmployeeFullInfo;
 import ru.skypro.lesson.springboot.EmployeeApplication.exception.EmployeeNotFoundException;
 import ru.skypro.lesson.springboot.EmployeeApplication.model.Employee;
 import ru.skypro.lesson.springboot.EmployeeApplication.repository.EmployeeRepository;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -87,5 +89,24 @@ public class EmployeeServiceImpl implements EmployeeService {
         return employeeRepository.getEmployeesWithHighestSalary().stream()
                 .map(EmployeeDTO::fromEmployee)
                 .toList();
+    }
+
+    @Override
+    public List<EmployeeDTO> getEmployeesWithPosition(String position) {
+        List<EmployeeDTO> employeeDTOList = employeeRepository.getAllEmployees().stream()
+                .map(EmployeeDTO::fromEmployee)
+                .filter(employee -> employee.getPosition().getName().equals(position))
+                .toList();
+
+        return employeeDTOList.isEmpty() ?
+                employeeRepository.getAllEmployees().stream()
+                .map(EmployeeDTO::fromEmployee)
+                .toList()
+                : employeeDTOList;
+    }
+
+    @Override
+    public EmployeeFullInfo getFullInfoById(int id) {
+        return Optional.ofNullable(employeeRepository.getFullInfoById(id)).orElseThrow(EmployeeNotFoundException::new);
     }
 }

@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import ru.skypro.lesson.springboot.EmployeeApplication.dto.EmployeeDTO;
 import ru.skypro.lesson.springboot.EmployeeApplication.model.Employee;
+import ru.skypro.lesson.springboot.EmployeeApplication.projection.EmployeeFullInfo;
 import ru.skypro.lesson.springboot.EmployeeApplication.service.EmployeeService;
 
 import java.util.List;
@@ -55,12 +56,22 @@ public class EmployeeController {
     }
 
     @GetMapping("/salaryHigherThan")
-    public List<EmployeeDTO> getSalaryHigherThan(@RequestParam("salary") int salary) {
+    public List<EmployeeDTO> getEmployeesWithSalaryHigherThan(@RequestParam("salary") int salary) {
         return employeeService.getSalaryHigherThan(salary);
     }
 
     @GetMapping("withHighestSalary")
     public List<EmployeeDTO> getEmployeesWithHighestSalary() {
         return employeeService.getEmployeesWithHighestSalary();
+    }
+
+    @GetMapping()
+    public List<EmployeeDTO> getEmployeesWithPosition(@RequestParam("position") String position) {
+        return employeeService.getEmployeesWithPosition(position);
+    }
+
+    @GetMapping("/{id}/fullInfo")
+    public EmployeeFullInfo getFullInfoById(@PathVariable int id) {
+        return employeeService.getFullInfoById(id);
     }
 }
