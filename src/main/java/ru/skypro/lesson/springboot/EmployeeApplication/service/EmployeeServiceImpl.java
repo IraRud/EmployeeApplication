@@ -1,6 +1,9 @@
 package ru.skypro.lesson.springboot.EmployeeApplication.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import ru.skypro.lesson.springboot.EmployeeApplication.dto.EmployeeDTO;
 import ru.skypro.lesson.springboot.EmployeeApplication.projection.EmployeeFullInfo;
@@ -100,13 +103,25 @@ public class EmployeeServiceImpl implements EmployeeService {
 
         return employeeDTOList.isEmpty() ?
                 employeeRepository.getAllEmployees().stream()
-                .map(EmployeeDTO::fromEmployee)
-                .toList()
+                        .map(EmployeeDTO::fromEmployee)
+                        .toList()
                 : employeeDTOList;
     }
 
     @Override
     public EmployeeFullInfo getFullInfoById(int id) {
         return Optional.ofNullable(employeeRepository.getFullInfoById(id)).orElseThrow(EmployeeNotFoundException::new);
+    }
+
+    @Override
+    public List<EmployeeDTO> getEmployeesWithPositionByPage(int pageIndex) {
+        int unitPerPage = 10;
+
+        Pageable employeeOfConcretePage = PageRequest.of(pageIndex, unitPerPage);
+        Page<Employee> page = employeeRepository.findAll(employeeOfConcretePage);
+
+        return page.stream()
+                .map(EmployeeDTO::fromEmployee)
+                .toList();
     }
 }

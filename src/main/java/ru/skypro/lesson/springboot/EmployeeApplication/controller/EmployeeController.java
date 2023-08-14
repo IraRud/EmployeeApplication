@@ -74,4 +74,9 @@ public class EmployeeController {
     public EmployeeFullInfo getFullInfoById(@PathVariable int id) {
         return employeeService.getFullInfoById(id);
     }
+
+    @GetMapping("page")
+    public List<EmployeeDTO> getEmployeesWithPositionByPage(@RequestParam(required = false, defaultValue = "0", name = "page") int page) {
+        return employeeService.getEmployeesWithPositionByPage(page);
+    }
 }

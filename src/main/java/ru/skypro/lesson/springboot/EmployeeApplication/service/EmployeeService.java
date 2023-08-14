@@ -19,4 +19,5 @@ public interface EmployeeService {
     List<EmployeeDTO> getEmployeesWithHighestSalary();
     List<EmployeeDTO> getEmployeesWithPosition(String position);
     EmployeeFullInfo getFullInfoById(int id);
+    List<EmployeeDTO> getEmployeesWithPositionByPage(int page);
 }
