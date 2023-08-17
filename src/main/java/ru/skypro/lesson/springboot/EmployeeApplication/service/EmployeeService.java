@@ -1,19 +1,23 @@
 package ru.skypro.lesson.springboot.EmployeeApplication.service;
 
+import ru.skypro.lesson.springboot.EmployeeApplication.dto.EmployeeDTO;
+import ru.skypro.lesson.springboot.EmployeeApplication.projection.EmployeeFullInfo;
 import ru.skypro.lesson.springboot.EmployeeApplication.model.Employee;
 
 import java.util.List;
 
 public interface EmployeeService {
-
     int getSumOfSalary();
-    Employee getEmployeeWithMinSalary();
-    Employee getEmployeeWithMaxSalary();
-    List<Employee> getHighSalary();
+    EmployeeDTO getEmployeeWithMinSalary();
+    EmployeeDTO getEmployeeWithMaxSalary();
+    List<EmployeeDTO> getHighSalary();
     void addEmployees(List<Employee> employees);
-    Employee getEmployeeById(int id);
+    EmployeeDTO getEmployeeById(int id);
     void deleteEmployeeById(int id);
     void editEmployee(Employee employee, int id);
-    List<Employee> getSalaryHigherThan(int salary);
-
+    List<EmployeeDTO> getSalaryHigherThan(int salary);
+    List<EmployeeDTO> getEmployeesWithHighestSalary();
+    List<EmployeeDTO> getEmployeesWithPosition(String position);
+    EmployeeFullInfo getFullInfoById(int id);
+    List<EmployeeDTO> getEmployeesWithPositionByPage(int page);
 }
