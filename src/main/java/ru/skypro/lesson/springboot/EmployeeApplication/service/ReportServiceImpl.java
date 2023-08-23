@@ -3,6 +3,8 @@ package ru.skypro.lesson.springboot.EmployeeApplication.service;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
+import org.springframework.core.io.ByteArrayResource;
+import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
 import ru.skypro.lesson.springboot.EmployeeApplication.dto.ReportDTO;
 import ru.skypro.lesson.springboot.EmployeeApplication.model.Report;
@@ -13,6 +15,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.UncheckedIOException;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 @Service
@@ -47,5 +50,23 @@ public class ReportServiceImpl implements ReportService {
             throw new UncheckedIOException("Cannot generate report file", e);
         }
         return file.getName();
+    }
+
+    @Override
+    public Resource generateReportById(int id) {
+        return new ByteArrayResource(
+                reportRepository.findById(id)
+                        .orElseThrow(() -> new IllegalStateException("Report with id " + id + " not found"))
+                        .getReport()
+                        .getBytes(StandardCharsets.UTF_8)
+        );
+    }
+
+    @Override
+    public File findReportFile(int id) {
+        return reportRepository.findById(id)
+                .map(Report::getPath)
+                .map(File::new)
+                .orElse(null);
     }
 }
