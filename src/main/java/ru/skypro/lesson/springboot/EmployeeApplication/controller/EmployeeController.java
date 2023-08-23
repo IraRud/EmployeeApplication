@@ -1,7 +1,9 @@
 package ru.skypro.lesson.springboot.EmployeeApplication.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import ru.skypro.lesson.springboot.EmployeeApplication.dto.EmployeeDTO;
 import ru.skypro.lesson.springboot.EmployeeApplication.model.Employee;
 import ru.skypro.lesson.springboot.EmployeeApplication.projection.EmployeeFullInfo;
@@ -78,5 +80,10 @@ public class EmployeeController {
     @GetMapping("page")
     public List<EmployeeDTO> getEmployeesWithPositionByPage(@RequestParam(required = false, defaultValue = "0", name = "page") int page) {
         return employeeService.getEmployeesWithPositionByPage(page);
+    }
+
+    @PostMapping(value = "upload", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public void upload(@RequestPart("employees") MultipartFile file) {
+        employeeService.uploadFile(file);
     }
 }
