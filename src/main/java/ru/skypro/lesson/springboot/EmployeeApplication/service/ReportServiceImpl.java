@@ -53,7 +53,7 @@ public class ReportServiceImpl implements ReportService {
     }
 
     @Override
-    public Resource generateReportById(int id) {
+    public Resource createReportById(int id) {
         return new ByteArrayResource(
                 reportRepository.findById(id)
                         .orElseThrow(() -> new IllegalStateException("Report with id " + id + " not found"))

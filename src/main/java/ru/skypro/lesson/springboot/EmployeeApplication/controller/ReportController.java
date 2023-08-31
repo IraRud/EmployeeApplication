@@ -27,7 +27,7 @@ public class ReportController {
 
     @GetMapping("{id}")
     public ResponseEntity<Resource> getReportById(@PathVariable int id) {
-        Resource resource = reportService.generateReportById(id);
+        Resource resource = reportService.createReportById(id);
         return ResponseEntity.status(HttpStatus.OK)
                 .contentType(MediaType.APPLICATION_JSON)
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"reportById.json\"")
