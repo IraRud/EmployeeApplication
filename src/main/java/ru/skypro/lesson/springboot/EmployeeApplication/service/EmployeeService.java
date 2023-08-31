@@ -1,8 +1,9 @@
 package ru.skypro.lesson.springboot.EmployeeApplication.service;
 
+import org.springframework.web.multipart.MultipartFile;
 import ru.skypro.lesson.springboot.EmployeeApplication.dto.EmployeeDTO;
-import ru.skypro.lesson.springboot.EmployeeApplication.projection.EmployeeFullInfo;
 import ru.skypro.lesson.springboot.EmployeeApplication.model.Employee;
+import ru.skypro.lesson.springboot.EmployeeApplication.projection.EmployeeFullInfo;
 
 import java.util.List;
 
@@ -20,4 +21,5 @@ public interface EmployeeService {
     List<EmployeeDTO> getEmployeesWithPosition(String position);
     EmployeeFullInfo getFullInfoById(int id);
     List<EmployeeDTO> getEmployeesWithPositionByPage(int page);
+    void uploadFile(MultipartFile file);
 }

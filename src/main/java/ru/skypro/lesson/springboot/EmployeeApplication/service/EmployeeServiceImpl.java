@@ -1,16 +1,20 @@
 package ru.skypro.lesson.springboot.EmployeeApplication.service;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 import ru.skypro.lesson.springboot.EmployeeApplication.dto.EmployeeDTO;
 import ru.skypro.lesson.springboot.EmployeeApplication.projection.EmployeeFullInfo;
 import ru.skypro.lesson.springboot.EmployeeApplication.exception.EmployeeNotFoundException;
 import ru.skypro.lesson.springboot.EmployeeApplication.model.Employee;
 import ru.skypro.lesson.springboot.EmployeeApplication.repository.EmployeeRepository;
 
+import java.io.IOException;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
@@ -19,6 +23,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class EmployeeServiceImpl implements EmployeeService {
     private final EmployeeRepository employeeRepository;
+    private final ObjectMapper objectMapper;
 
     @Override
     public int getSumOfSalary() {
@@ -123,5 +128,18 @@ public class EmployeeServiceImpl implements EmployeeService {
         return page.stream()
                 .map(EmployeeDTO::fromEmployee)
                 .toList();
+    }
+
+    @Override
+    public void uploadFile(MultipartFile file) {
+        try {
+            List<EmployeeDTO> employeeDTOList = objectMapper.readValue(file.getBytes(), new TypeReference<>() {
+            });
+            employeeDTOList.stream()
+                    .map(EmployeeDTO::toEmployee)
+                    .forEach(employeeRepository::save);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

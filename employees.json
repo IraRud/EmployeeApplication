@@ -1,0 +1,20 @@
+[
+  {
+    "id": 10,
+    "name": "Dirk Gently",
+    "salary": 70000,
+    "position": {
+      "id": 1,
+      "name": "NameOne"
+    }
+  },
+  {
+    "id": 11,
+    "name": "Amanda Brotzman",
+    "salary": 80000,
+    "position": {
+      "id": 2,
+      "name": "NameTwo"
+    }
+  }
+]
