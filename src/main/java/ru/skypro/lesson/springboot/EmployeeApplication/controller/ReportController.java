@@ -16,7 +16,7 @@ import java.io.FileNotFoundException;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("report")
+@RequestMapping("user/report")
 public class ReportController {
     private final ReportService reportService;
 

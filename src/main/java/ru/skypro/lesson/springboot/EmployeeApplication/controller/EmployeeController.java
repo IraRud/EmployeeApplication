@@ -1,11 +1,8 @@
 package ru.skypro.lesson.springboot.EmployeeApplication.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 import ru.skypro.lesson.springboot.EmployeeApplication.dto.EmployeeDTO;
-import ru.skypro.lesson.springboot.EmployeeApplication.model.Employee;
 import ru.skypro.lesson.springboot.EmployeeApplication.projection.EmployeeFullInfo;
 import ru.skypro.lesson.springboot.EmployeeApplication.service.EmployeeService;
 
@@ -13,7 +10,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("employees")
+@RequestMapping("user/employees")
 public class EmployeeController {
     private final EmployeeService employeeService;
 
@@ -37,24 +34,9 @@ public class EmployeeController {
         return employeeService.getHighSalary();
     }
 
-    @PostMapping()
-    public void createEmployees(@RequestBody List<Employee> employees) {
-        employeeService.addEmployees(employees);
-    }
-
     @GetMapping("/{id}")
     public EmployeeDTO getEmployeeById(@PathVariable int id) {
         return employeeService.getEmployeeById(id);
-    }
-
-    @DeleteMapping("/{id}")
-    public void deleteEmployeeById(@PathVariable int id) {
-        employeeService.deleteEmployeeById(id);
-    }
-
-    @PutMapping("/{id}")
-    public void changeEmployeeById(@RequestBody Employee employee, @PathVariable int id) {
-        employeeService.editEmployee(employee, id);
     }
 
     @GetMapping("/salaryHigherThan")
@@ -80,10 +62,5 @@ public class EmployeeController {
     @GetMapping("page")
     public List<EmployeeDTO> getEmployeesWithPositionByPage(@RequestParam(required = false, defaultValue = "0", name = "page") int page) {
         return employeeService.getEmployeesWithPositionByPage(page);
-    }
-
-    @PostMapping(value = "upload", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public void upload(@RequestPart("employees") MultipartFile file) {
-        employeeService.uploadFile(file);
     }
 }
