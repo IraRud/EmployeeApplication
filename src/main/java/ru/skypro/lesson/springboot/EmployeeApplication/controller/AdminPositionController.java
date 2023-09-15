@@ -8,7 +8,7 @@ import ru.skypro.lesson.springboot.EmployeeApplication.service.PositionService;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("admin/position")
-public class PositionAdminController {
+public class AdminPositionController {
     private final PositionService positionService;
 
     @PostMapping()
