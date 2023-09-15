@@ -1,0 +1,14 @@
+databaseChangeLog:
+  - changeSet:
+      id: 6
+      author: erruvinka
+      changes:
+        - createTable:
+            tableName: auth_user_user_roles
+            columns:
+              - column:
+                  name: auth_user_id
+                  type: BIGINT
+              - column:
+                  name: user_roles_id
+                  type: BIGINT
