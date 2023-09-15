@@ -7,8 +7,22 @@ databaseChangeLog:
             tableName: auth_user_user_roles
             columns:
               - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+              - column:
                   name: auth_user_id
                   type: BIGINT
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_auth_user_user_roles
+                    references: auth_user(id)
               - column:
                   name: user_roles_id
                   type: BIGINT
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_user_roles_auth_user
+                    references: user_role(id)

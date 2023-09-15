@@ -1,6 +1,6 @@
 databaseChangeLog:
   - changeSet:
-      id: 1
+      id: 2
       author: erruvinka
       changes:
         - createTable:
@@ -23,3 +23,7 @@ databaseChangeLog:
               - column:
                   name: position_id
                   type: int
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_employee_position
+                    references: position(id)

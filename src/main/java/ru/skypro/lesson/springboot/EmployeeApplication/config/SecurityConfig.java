@@ -53,7 +53,6 @@ public class SecurityConfig {
                     .formLogin().permitAll()
                     .and()
                     .logout().logoutUrl("/logout");
-
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
